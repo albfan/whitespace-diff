@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#set -xv
+
+if [ $# == 0 ]
+then
+   echo one ref is needed
+fi
+FIRST_REF=$1
+SECOND_REF=${2:-HEAD}
+
+TAB_SUBST='^I'
+cdiff -s < <(git diff $FIRST_REF $SECOND_REF | perl -p -e 's/\t/'$TAB_SUBST'/g')
